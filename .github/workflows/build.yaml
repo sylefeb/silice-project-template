@@ -1,13 +1,17 @@
-name: 'Build Silice'
+name: 'Build Project'
 on: [push]
 
 jobs:
   build-silice:
     runs-on: ubuntu-latest
     steps:
-      - name: Build Silice
+      - name: Install Silice
         shell: bash
         run: |
           git clone --recursive --branch draft https://github.com/sylefeb/Silice
           cd Silice
           ./get_started_linux.sh --non-interactive
+      - name: Build project
+        shell: bash
+        run : |
+          make project
