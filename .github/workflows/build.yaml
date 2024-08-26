@@ -1,5 +1,4 @@
 name: 'Build Project'
-run-name: 'Project bitstream'
 on: [push]
 
 jobs:
