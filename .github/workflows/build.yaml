@@ -31,6 +31,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Commit bitstream
+        run: |
           ./copy_bitstream.sh
           git add bistream
           git commit -m "(automated) adding result bitstream"
