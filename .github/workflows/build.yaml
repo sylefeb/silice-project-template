@@ -33,6 +33,6 @@ jobs:
       - name: Commit bitstream
         run: |
           ./copy_bitstream.sh
-          git add bistream
+          git add bitstream
           git commit -m "(automated) adding result bitstream"
           git push
