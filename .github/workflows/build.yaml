@@ -26,13 +26,11 @@ jobs:
         shell: bash
         run : |
           make project
-      - name: Setup git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      - name: Commit bitstream
+      - name: Copy bitstream
         run: |
           ./copy_bitstream.sh
-          git add bitstream
-          git commit -m "(automated) adding result bitstream"
-          git push
+      - name: Upload as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bitstream
+          path: bitstream
