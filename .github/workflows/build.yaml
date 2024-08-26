@@ -5,6 +5,8 @@ jobs:
   build-silice:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
       - name: Install Silice
         shell: bash
         run: |
