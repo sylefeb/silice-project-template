@@ -1,0 +1,14 @@
+name: 'Build Silice'
+description: 'This action installs Silice'
+on: [push]
+
+jobs:
+  build-silice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Silice
+        shell: bash
+        run: |
+          git clone --branch draft https://github.com/sylefeb/Silice
+          cd Silice
+          ./compile_silice_linux.sh
