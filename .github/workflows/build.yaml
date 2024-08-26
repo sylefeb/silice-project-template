@@ -1,5 +1,4 @@
 name: 'Build Silice'
-description: 'This action installs Silice'
 on: [push]
 
 jobs:
