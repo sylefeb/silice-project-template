@@ -8,6 +8,6 @@ jobs:
       - name: Build Silice
         shell: bash
         run: |
-          git clone --branch draft https://github.com/sylefeb/Silice
+          git clone --recursive --branch draft https://github.com/sylefeb/Silice
           cd Silice
-          ./compile_silice_linux.sh
+          ./get_started_linux.sh --non-interactive
