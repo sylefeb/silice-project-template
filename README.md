@@ -1,2 +1,3 @@
-# silice-project-template
-Project template
+# Silice project template
+
+This project template provides automated building of a projet through github actions. Fork this repository, customize the [Makefile](Makefile) to setup your board, edit [project.si](project.si) then commit and push. Github will take care of everything and produce a zip containing the bitstream. The result can be downloaded from the `Actions` tab: click on the latest workflow (its title is your commit message), then select `Summary` in the left panel. The bitstream download is at the bottom of the summary in the `Artifacts` section. Download the bitstream, unzip and program your board using (for instance, but recommended) [openFPGALoader](https://github.com/trabucayre/openFPGALoader).
