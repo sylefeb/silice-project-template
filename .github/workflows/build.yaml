@@ -10,11 +10,15 @@ jobs:
       - name: Download Silice
         shell: bash
         run: |
+          echo "downloading ..."
           wget -c https://github.com/sylefeb/silice-for-github/releases/download/bucket-linux-x64/release.tgz
+          echo "decompressing ..."
           tar xvfz release.tgz
+          echo "installing ..."
           mkdir -p /usr/local/share/silice
           mv release/silice /usr/local/share/silice
           mv release/bin/* /usr/bin/
+          echo "path setup ..."
           echo '/usr/local/share/silice/oss-cad-suite/bin/' >>"${GITHUB_PATH}"
           echo '/usr/local/share/silice/oss-cad-suite/lib/' >>"${GITHUB_PATH}"
           echo '/usr/local/share/silice/oss-cad-suite/share/verilator/bin/' >>"${GITHUB_PATH}"
@@ -24,6 +28,7 @@ jobs:
           echo "GDK_PIXBUF_MODULEDIR=/usr/local/share/silice/oss-cad-suite/lib/gdk-pixbuf-2.0/2.10.0/loaders" >> $GITHUB_ENV
           echo "GDK_PIXBUF_MODULE_FILE=/usr/local/share/silice/oss-cad-suite/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" >> $GITHUB_ENV
           echo "OPENFPGALOADER_SOJ_DIR=/usr/local/share/silice/oss-cad-suite/share/openFPGALoader" >> $GITHUB_ENV
+          echo "done."
       - name: Build project
         shell: bash
         run : |
