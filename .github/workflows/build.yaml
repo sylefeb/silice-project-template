@@ -16,7 +16,7 @@ jobs:
           tar xvfz release.tgz
           echo "installing ..."
           echo "(mkdir)"
-          sudo mkdir -p /usr/local/share/silice
+          sudo mkdir -p /usr/local/share/
           echo "(mv silice)"
           sudo mv release/silice /usr/local/share/
           ls -la /usr/local/share/silice
