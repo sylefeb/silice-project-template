@@ -7,12 +7,14 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-      - name: Install Silice
+      - name: Download Silice
         shell: bash
         run: |
-          git clone --recursive --branch draft https://github.com/sylefeb/Silice
-          cd Silice
-          ./get_started_linux.sh --non-interactive
+          wget -c https://github.com/sylefeb/silice-for-github/releases/download/bucket-linux-x64/release.tgz
+          tar xvfz release.tgz
+          mkdir -p /usr/local/share/silice
+          mv release/silice /usr/local/share/silice
+          mv release/bin/* /usr/bin/
           echo '/usr/local/share/silice/oss-cad-suite/bin/' >>"${GITHUB_PATH}"
           echo '/usr/local/share/silice/oss-cad-suite/lib/' >>"${GITHUB_PATH}"
           echo '/usr/local/share/silice/oss-cad-suite/share/verilator/bin/' >>"${GITHUB_PATH}"
