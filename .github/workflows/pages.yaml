@@ -4,6 +4,7 @@ on: [workflow_call]
 
 permissions:
   contents: write
+  pages: write
 
 jobs:
   make-pages:
