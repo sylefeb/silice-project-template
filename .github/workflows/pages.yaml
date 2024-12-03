@@ -36,8 +36,6 @@ jobs:
               <title>FPGA programming page</title>
             </head>
             <body>
-            <script src=jszip.min.js></script>
-            <script src=jszip-utils.min.js></script>
             <button id="selectAndProgramDevice">Select ulx3s device</button>
             <script>
             var Module = {
@@ -54,6 +52,7 @@ jobs:
               xhr.onload = function () {
                 if (this.status === 200) {
                   FS.writeFile('/bitstream.bit', new Uint8Array(xhr.response), { encoding: "binary" });
+                  console.log("bitstream loaded")
                 }
               };
               xhr.send();
