@@ -27,7 +27,7 @@ jobs:
               <title>FPGA programming page</title>
             </head>
             <body>
-            <p>This is a test</p>
+            <p>Download <a href="bitstream.zip">bitstream</a></p>
             </body>
             </html>
           EOF
