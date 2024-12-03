@@ -36,7 +36,43 @@ jobs:
               <title>FPGA programming page</title>
             </head>
             <body>
-            <p>Download <a href="bitstream">bitstream</a></p>
+            <script src=jszip.min.js></script>
+            <script src=jszip-utils.min.js></script>
+            <button id="selectAndProgramDevice">Select ulx3s device</button>
+            <script>
+            var Module = {
+                    preRun: [function(){console.log('preRun')}],
+                    'print': function(text) { console.log(':: ' + text) },
+                    'printErr': function(text) { console.log(':: ' + text) }
+            }
+            Module['onRuntimeInitialized'] = function() {
+              // download file
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "bitstream");
+              xhr.responseType = "arraybuffer";
+              xhr.overrideMimeType("application/octet-stream");
+              xhr.onload = function () {
+                if (this.status === 200) {
+                  FS.writeFile('/bitstream.bit', new Uint8Array(xhr.response), { encoding: "binary" });
+                }
+              };
+              xhr.send();
+            }
+            function assert() {}
+            </script>
+            <script src=openFPGALoader.js></script>
+            <script>
+                // Request access to a USB device
+                document.getElementById('selectAndProgramDevice').addEventListener('click', async () => {
+                  try {
+                    const device = await navigator.usb.requestDevice({ filters: [] });
+                    console.log(`Selected device: ${device.productName}`);
+                    Module.callMain(['-b','ulx3s','/bitstream.bit'])
+                  } catch (err) {
+                    console.error(`Error: ${err}`);
+                  }
+                });
+            </script>
             </body>
             </html>
           EOF
