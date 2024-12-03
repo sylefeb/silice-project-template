@@ -17,6 +17,15 @@ jobs:
           name: bitstream
           path: gh-pages
 
+      - name: Download openFPGALoader-online
+        shell: bash
+        run: |
+          echo "downloading ..."
+          wget -c https://github.com/sylefeb/openFPGALoader-online/releases/download/bucket-linux-x64/release.tgz
+          echo "decompressing ..."
+          tar xvfz release.tgz
+          cp release/* gh-pages/
+
       - name: Generate HTML page
         shell: bash
         run: |
@@ -27,7 +36,7 @@ jobs:
               <title>FPGA programming page</title>
             </head>
             <body>
-            <p>Download <a href="bitstream.zip">bitstream</a></p>
+            <p>Download <a href="bitstream">bitstream</a></p>
             </body>
             </html>
           EOF
