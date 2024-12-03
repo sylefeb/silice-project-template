@@ -1,6 +1,10 @@
 name: 'Build Project'
 on: [push]
 
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   build-silice:
     runs-on: ubuntu-latest
