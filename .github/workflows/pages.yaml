@@ -5,6 +5,7 @@ on: [workflow_call]
 permissions:
   contents: write
   pages: write
+  id-token: write
 
 jobs:
   make-pages:
