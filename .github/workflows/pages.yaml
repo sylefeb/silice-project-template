@@ -2,6 +2,9 @@ name: programming
 description: 'Creates a page for programming your FPGA'
 on: [workflow_call]
 
+permissions:
+  contents: write
+
 jobs:
   make-pages:
     runs-on: ubuntu-latest
