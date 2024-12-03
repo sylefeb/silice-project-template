@@ -22,5 +22,5 @@ jobs:
           name: bitstream
           path: bitstream
   tests:
-    uses: ./.github/workflows/pages.yml
+    uses: ./.github/workflows/pages.yaml
     needs: [build-silice]
