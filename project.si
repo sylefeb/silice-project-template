@@ -2,22 +2,23 @@
 // https://github.com/sylefeb/Silice
 // MIT license, see LICENSE_MIT in Silice repo root
 
+//
+// A simple blinky!
+//
+// Replace by your project main
+//
+
 unit main(output uint$NUM_LEDS$ leds) // $NUM_LEDS$ is replaced by the preprocessor,
 {                                     // e.g. this becomes uint5 on the IceStick and IceBreaker
 
   uint28 cnt = 0; // 28 bits wide unsigned int
 
   // always before is done at every clock cycle /before/ the algorithm
-  always_before {
+  always {
     // leds tracks the most significant bits of the counter
     leds = cnt[ widthof(cnt)-widthof(leds) , widthof(leds) ];
-  }
-
-  // algorithm (for demo, increment could simply be in always block)
-  algorithm {
-    while (1) {       // if hardware, run forever
-      cnt  = cnt + 1; // increase cnt (loops back to zero after overflow)
-    }
+    // increment the counter
+    cnt  = cnt + 1; // increase cnt (loops back to zero after overflow)
   }
 
 }

@@ -36,7 +36,7 @@ jobs:
               <title>FPGA programming page</title>
             </head>
             <body>
-            <button id="selectAndProgramDevice">Select ulx3s device</button>
+            <button id="selectAndProgramDevice">Select your FPGA device</button>
             <script>
             var Module = {
                     preRun: [function(){console.log('preRun')}],
@@ -104,6 +104,6 @@ jobs:
           PAGE_URL=${{ steps.deployment.outputs.page_url }}
           PAGE_URL=$(echo "$PAGE_URL" | sed -e 's/\/$//')
           cat << EOF >> $GITHUB_STEP_SUMMARY
-          # Program you FPGA
-          [go to programming page]($PAGE_URL/index.html)
+          # Test your design
+          [Go to the online FPGA configuration page]($PAGE_URL/index.html) (Requires WebUSB support, for instance Chrome or Edge).
           EOF
