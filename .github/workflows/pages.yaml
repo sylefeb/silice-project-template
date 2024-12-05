@@ -37,11 +37,13 @@ jobs:
             </head>
             <body>
             <button id="selectAndProgramDevice">Select your FPGA device</button>
+            <p id="txtfield"></p>
             <script>
+            var txtfield = document.getElementById("txtfield");
             var Module = {
-                    preRun: [function(){console.log('preRun')}],
-                    'print': function(text) { console.log(':: ' + text) },
-                    'printErr': function(text) { console.log(':: ' + text) }
+                    preRun: [function() {  }],
+                    'print': function(text)    { paragraph.textContent += text; console.log(':: ' + text) },
+                    'printErr': function(text) { paragraph.textContent += text; console.log(':: ' + text) }
             }
             Module['onRuntimeInitialized'] = function() {
               // download file
