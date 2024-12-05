@@ -40,10 +40,11 @@ jobs:
             <p id="txtfield"></p>
             <script>
             var txtfield = document.getElementById("txtfield");
+            txtfield.setAttribute('style', 'white-space: pre;');
             var Module = {
                     preRun: [function() {  }],
-                    'print': function(text)    { txtfield.textContent += text + "<br>"; console.log(':: ' + text) },
-                    'printErr': function(text) { txtfield.textContent += text + "<br>"; console.log(':: ' + text) }
+                    'print': function(text)    { txtfield.textContent += text + "\r\n"; console.log(':: ' + text) },
+                    'printErr': function(text) { txtfield.textContent += text + "\r\n"; console.log(':: ' + text) }
             }
             Module['onRuntimeInitialized'] = function() {
               // download file
