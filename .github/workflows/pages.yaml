@@ -42,8 +42,8 @@ jobs:
             var txtfield = document.getElementById("txtfield");
             var Module = {
                     preRun: [function() {  }],
-                    'print': function(text)    { txtfield.textContent += text; console.log(':: ' + text) },
-                    'printErr': function(text) { txtfield.textContent += text; console.log(':: ' + text) }
+                    'print': function(text)    { txtfield.textContent += text + "<br>"; console.log(':: ' + text) },
+                    'printErr': function(text) { txtfield.textContent += text + "<br>"; console.log(':: ' + text) }
             }
             Module['onRuntimeInitialized'] = function() {
               // download file
