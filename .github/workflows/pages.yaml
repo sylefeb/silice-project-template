@@ -30,53 +30,91 @@ jobs:
         shell: bash
         run: |
           cat << EOF >> gh-pages/index.html
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-              <title>FPGA programming page</title>
-            </head>
-            <body>
-            <button id="selectAndProgramDevice">Select your FPGA device</button>
-            <p id="txtfield"></p>
-            <script>
-            var txtfield = document.getElementById("txtfield");
-            txtfield.setAttribute('style', 'white-space: pre;');
-            var Module = {
-                    preRun: [function() {  }],
-                    'print': function(text)    { txtfield.textContent += text + "\r\n"; console.log(':: ' + text) },
-                    'printErr': function(text) { txtfield.textContent += text + "\r\n"; console.log(':: ' + text) }
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <title>FPGA programming page</title>
+            <style type="text/css">
+            pre {
+              margin: 0;
+              font-family: monaco, "Courier New", Courier, monospace;
+              line-height: 1.3;
+              background: black;
+              color: gray;
             }
-            Module['onRuntimeInitialized'] = function() {
-              // download file
-              var xhr = new XMLHttpRequest();
-              xhr.open("GET", "bitstream");
-              xhr.responseType = "arraybuffer";
-              xhr.overrideMimeType("application/octet-stream");
-              xhr.onload = function () {
-                if (this.status === 200) {
-                  FS.writeFile('/bitstream.bit', new Uint8Array(xhr.response), { encoding: "binary" });
-                  console.log("bitstream loaded")
+            .button {
+              background-color: #f0f0f0;
+              border: none;
+              color: black;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              border-radius: 8px;
+            }
+          </style>
+          </head>
+          <body style="background-color: black;">
+          <button class="button" id="selectAndProgramDevice">Click to select your FPGA device</button>
+          <pre id="txtfield"></pre>
+
+          <script type="module">
+          import { AnsiUp } from 'https://cdn.jsdelivr.net/npm/ansi_up@6.0.2/ansi_up.min.js';
+          window.ansiUp = new AnsiUp();
+          </script>
+
+          <script>
+          var ansiText = "\\n\\033[1;97mIn progress ... please wait, the console is not refreshed during uploads...\\033[0m\\n\\n";
+          var Module = {
+            preRun: [function() {  }],
+            'print': function(text)    {
+              ansiText += text + "\\r\\n";
+              niceText = window.ansiUp.ansi_to_html(ansiText);
+              console.log(niceText);
+              document.getElementById("txtfield").innerHTML = niceText;
+              console.log(':: ' + text)
+            },
+            'printErr': function(text) {
+              ansiText += text + "\\r\\n";
+              niceText = window.ansiUp.ansi_to_html(ansiText);
+              console.log(niceText);
+              document.getElementById("txtfield").innerHTML = niceText;
+              console.log(':: ' + text)
+            }
+          }
+          Module['onRuntimeInitialized'] = function() {
+            // download file
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", 'bitstream');
+            xhr.responseType = "arraybuffer";
+            xhr.overrideMimeType("application/octet-stream");
+            xhr.onload = function () {
+              if (this.status === 200) {
+                FS.writeFile('/bitstream.bit', new Uint8Array(xhr.response), { encoding: "binary" });
+                console.log("bitstream loaded")
+              }
+            };
+            xhr.send();
+          }
+          function assert() {}
+          </script>
+
+          <script src=release/openFPGALoader.js></script>
+          <script>
+              // Request access to a USB device
+              document.getElementById('selectAndProgramDevice').addEventListener('click', async () => {
+                try {
+                  const device = await navigator.usb.requestDevice({ filters: [] });
+                  console.log(`Selected device: ${device.productName}`);
+                  Module.callMain(['-b','ulx3s','/bitstream.bit'])
+                } catch (err) {
+                  console.error(`Error: ${err}`);
                 }
-              };
-              xhr.send();
-            }
-            function assert() {}
-            </script>
-            <script src=openFPGALoader.js></script>
-            <script>
-                // Request access to a USB device
-                document.getElementById('selectAndProgramDevice').addEventListener('click', async () => {
-                  try {
-                    const device = await navigator.usb.requestDevice({ filters: [] });
-                    console.log(`Selected device: ${device.productName}`);
-                    Module.callMain(['-b','ulx3s','/bitstream.bit'])
-                  } catch (err) {
-                    console.error(`Error: ${err}`);
-                  }
-                });
-            </script>
-            </body>
-            </html>
+              });
+          </script>
+          </body>
+          </html>
           EOF
 
       - name: Upload artifact
