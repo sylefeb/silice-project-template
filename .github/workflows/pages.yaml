@@ -100,7 +100,7 @@ jobs:
           function assert() {}
           </script>
 
-          <script src=release/openFPGALoader.js></script>
+          <script src=openFPGALoader.js></script>
           <script>
               // Request access to a USB device
               document.getElementById('selectAndProgramDevice').addEventListener('click', async () => {
