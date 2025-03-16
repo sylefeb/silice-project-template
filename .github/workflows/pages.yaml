@@ -11,6 +11,11 @@ jobs:
   make-pages:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository and get BOARD file
+        uses: actions/checkout@v4
+        run: |
+          cp BOARD gh-pages/
+
       - name: Download bitstream artifact
         uses: actions/download-artifact@v4
         with:
