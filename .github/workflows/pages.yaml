@@ -11,8 +11,11 @@ jobs:
   make-pages:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository and get BOARD file
+      - name: Check out repository and
         uses: actions/checkout@v4
+
+      - name: Get BOARD file
+        shell: bash
         run: |
           cp BOARD gh-pages/
 
