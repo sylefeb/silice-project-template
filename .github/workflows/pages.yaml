@@ -116,7 +116,18 @@ jobs:
                 try {
                   const device = await navigator.usb.requestDevice({ filters: [] });
                   console.log(`Selected device: ${device.productName}`);
-                  Module.callMain(['-b','$BOARD','/bitstream.bit'])
+                  var ofl_board = '$BOARD'
+                  if (ofl_board == 'icebreaker'
+                   || ofl_board == 'icestick'
+                   || ofl_board == 'icebitsy'
+                   || ofl_board == 'fomu'
+                   || ofl_board == 'brot'
+                   || ofl_board == 'mch2022'
+                   || ofl_board == 'riegel'
+                  ) {
+                    ofl_board = 'ice40_generic'
+                  }
+                  Module.callMain(['-b',ofl_board,'/bitstream.bit'])
                 } catch (err) {
                   console.error(`Error: ${err}`);
                 }
