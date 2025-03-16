@@ -29,6 +29,7 @@ jobs:
       - name: Generate HTML page
         shell: bash
         run: |
+          BOARD=$(cat BOARD)
           cat << EOF >> gh-pages/index.html
           <!DOCTYPE html>
           <html lang="en">
@@ -56,7 +57,7 @@ jobs:
           </style>
           </head>
           <body style="background-color: black;">
-          <button class="button" id="selectAndProgramDevice">Click to select your FPGA device</button>
+          <button class="button" id="selectAndProgramDevice">Click to select your FPGA ($BOARD)</button>
           <pre id="txtfield"></pre>
 
           <script type="module">
@@ -107,7 +108,7 @@ jobs:
                 try {
                   const device = await navigator.usb.requestDevice({ filters: [] });
                   console.log(`Selected device: ${device.productName}`);
-                  Module.callMain(['-b','ulx3s','/bitstream.bit'])
+                  Module.callMain(['-b','$BOARD','/bitstream.bit'])
                 } catch (err) {
                   console.error(`Error: ${err}`);
                 }
