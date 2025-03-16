@@ -14,16 +14,16 @@ jobs:
       - name: Check out repository and
         uses: actions/checkout@v4
 
-      - name: Get BOARD file
-        shell: bash
-        run: |
-          cp BOARD gh-pages/
-
       - name: Download bitstream artifact
         uses: actions/download-artifact@v4
         with:
           name: bitstream
           path: gh-pages
+
+      - name: Get BOARD file
+        shell: bash
+        run: |
+          cp BOARD gh-pages/
 
       - name: Download openFPGALoader-online
         shell: bash
